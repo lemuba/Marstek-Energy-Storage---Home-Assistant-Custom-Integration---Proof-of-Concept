@@ -37,7 +37,7 @@ Required fields:
 - **Port** *(default: `30000`)*  
 - **Scan Interval (s)** *(default: `10`)*  
 - **Your local_Homeassistant-IP** and **local Homeassistant Port** for binding the outgoing UDP socket (e.g. under strict NAT)
-  (**Note!: The Port you set for the Homeassistant Port must be equal to the above Mastek battery Port, else Homeassistant will not receive any data**) 
+  (**Note!: The Port you set for the Homeassistant Port must be equal to the above Marstek battery Port, else Homeassistant will not receive any data**) 
 - **Timeout (s)** *(default: `5`)*  
 
 ---
