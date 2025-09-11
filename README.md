@@ -34,11 +34,10 @@ It retrieves status data and allows switching between operating modes.
 Required fields:
 - **IP** *(Marstek battery)*  
 - **Device ID** *(default: `0`)*  
-
-Optional fields:
 - **Port** *(default: `30000`)*  
 - **Scan Interval (s)** *(default: `10`)*  
-- **local_IP** and **local_port** for binding the outgoing UDP socket (e.g. under strict NAT)  
+- **local_Homeassistant-IP** and **local_Homeassistant-Port** for binding the outgoing UDP socket (e.g. under strict NAT)
+-   **Note!: The Port you set for the Homeassistant Port must be equal to the Mastek battery port, else Homeassistant will not receive any data** 
 - **Timeout (s)** *(default: `5`)*  
 
 ---
