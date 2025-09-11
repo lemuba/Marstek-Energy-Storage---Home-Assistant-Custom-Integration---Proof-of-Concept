@@ -36,8 +36,8 @@ Required fields:
 - **Device ID** *(default: `0`)*  
 - **Port** *(default: `30000`)*  
 - **Scan Interval (s)** *(default: `10`)*  
-- **local_Homeassistant-IP** and **local_Homeassistant-Port** for binding the outgoing UDP socket (e.g. under strict NAT)
--   **Note!: The Port you set for the Homeassistant Port must be equal to the Mastek battery port, else Homeassistant will not receive any data** 
+- **Your local_Homeassistant-IP** and **local Homeassistant Port** for binding the outgoing UDP socket (e.g. under strict NAT)
+  (**Note!: The Port you set for the Homeassistant Port must be equal to the above Mastek battery Port, else Homeassistant will not receive any data**) 
 - **Timeout (s)** *(default: `5`)*  
 
 ---
