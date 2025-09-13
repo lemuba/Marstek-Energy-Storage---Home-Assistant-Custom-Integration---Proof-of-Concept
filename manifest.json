@@ -1,0 +1,11 @@
+{
+  "domain": "marstek",
+  "name": "Marstek Energy Storage",
+  "version": "0.6.11",
+  "requirements": [],
+  "config_flow": true,
+  "codeowners": [
+    "@you"
+  ],
+  "iot_class": "local_polling"
+}
