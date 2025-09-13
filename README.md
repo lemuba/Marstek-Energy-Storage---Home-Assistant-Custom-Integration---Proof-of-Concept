@@ -1,112 +1,152 @@
-# Marstek Energy Storage – Home Assistant Integration
+# Marstek Energy Storage -- Home Assistant Custom Integration (Proof of Concept)
 
-IMPORTANT: Please note that I´m not a programmer. This Home Assistant Integration was designed by me just with the help of Chat gpt 5 by Trial and error. Most possible I will not support and also not continue to develop this Integration. Understand this Version just as Proof of Concept. Possible that below mentioned sensors, switches, etc,  will not work or be unstable. The Hardware I used to test everyting was my own Marstek Venus v2, Firmware V154 and with enabled API on port 30000.
+IMPORTANT: Please note that I´m not a programmer. This Home Assistant
+Integration was created with the help of ChatGPT by trial and error.\
+This is only a **Proof of Concept**. I may not provide support or
+further development.\
+Some sensors, switches, or features may not work reliably.
 
-> **Version:** 0.6.11 · **Domain:** `marstek` · **IoT class:** `local_polling`
+Tested with: **Marstek Venus v2** · **Firmware V154** · **API enabled on
+port 30000**
 
-A lightweight local integration for Marstek energy storage systems (UDP-JSON).  
+> **Version:** 0.6.11 · **Domain:** `marstek` · **IoT class:**
+> `local_polling`
+
+A lightweight local integration for Marstek energy storage systems
+(UDP-JSON).\
 It retrieves status data and allows switching between operating modes.
 
----
+------------------------------------------------------------------------
+
+## 📂 Project Structure
+
+The integration must be installed under the Home Assistant
+`custom_components/` directory:
+
+    custom_components/marstek/
+    ├── __init__.py
+    ├── api.py
+    ├── coordinator.py
+    ├── sensor.py
+    ├── switch.py
+    ├── number.py
+    ├── select.py
+    ├── binary_sensor.py
+    ├── manifest.json
+    ├── diagnostics.py
+    ├── strings.json
+    ├── translations/
+    │   └── en.json
+
+👉 The folder name must be exactly `marstek`, otherwise Home Assistant
+will not detect the integration.
+
+------------------------------------------------------------------------
 
 ## ✨ Features
-- **UI auto-discovery** (Config Flow)
-- **Sensors** for SoC, battery/PV/grid power, energy counters, and more
-- **Control operating mode**: `Auto`, `AI`, `Manual`, `Passive`
-- **Number entities** for fine-tuning in *Passive* mode (power, countdown)
-- **Binary sensors** for charge/discharge permission
-- **Switch/Select entities** for quick mode switching
 
----
+-   **UI auto-discovery** (Config Flow)
+-   **Sensors**: SoC, battery/PV/grid power, energy counters, etc.
+-   **Control operating mode**: `Auto`, `AI`, `Manual`, `Passive`
+-   **Number entities** for Passive mode (power, countdown)
+-   **Binary sensors** for charge/discharge permission
+-   **Switch/Select entities** for quick mode switching
+-   **Service**: `marstek.refresh_now` to force an update
+
+------------------------------------------------------------------------
 
 ## 📦 Installation
 
-**Manual**
-1. Create the folder `custom_components/marstek` in your Home Assistant `config` directory.  
-2. Copy the contents of this repository into that folder.  
-3. Restart Home Assistant.  
+1.  Create the folder `custom_components/marstek` in your Home Assistant
+    `config` directory.\
+2.  Copy all contents of this repository into that folder.\
+3.  Restart Home Assistant.
 
----
+------------------------------------------------------------------------
 
 ## ⚙️ Setup (UI)
-**Settings → Devices & Services → Add Integration → “Marstek”**, then:
 
-Required fields:
-- **IP** *(Marstek battery)*  
-- **Device ID** *(default: `0`)*  
-- **Port** *(default: `30000`)*  
-- **Scan Interval (s)** *(default: `10`)*  
-- **Your local_Homeassistant-IP** and **local Homeassistant Port** for binding the outgoing UDP socket (e.g. under strict NAT)
-  (**Note!: The Port you set for the Homeassistant Port must be equal to the above Marstek battery Port, else Homeassistant will not receive any data**) 
-- **Timeout (s)** *(default: `5`)*  
+Go to: **Settings → Devices & Services → Add Integration → "Marstek"**,
+then enter:
 
----
+-   **IP** (Marstek battery)\
+-   **Device ID** (default: `0`)\
+-   **Port** (default: `30000`)\
+-   **Scan Interval (s)** (default: `10`)\
+-   **Local Home Assistant IP + Port** (required under strict NAT)\
+-   **Timeout (s)** (default: `5`)
 
-## 🧩 Entities (Overview)
+⚠️ Note: The Home Assistant port must match the Marstek port, otherwise
+no data will be received.
+
+------------------------------------------------------------------------
+
+## 🧩 Entities
 
 ### Sensors
-- **Battery SoC** (`bat_soc`/`soc`)  
-- **Battery Power** (`bat_power`), **PV Power** (`pv_power`)  
-- **Grid Import/Export Power** (`offgrid_power`/`ongrid_power`)  
-- **Total PV/Grid/Load Energy** (`total_*_energy`, scaled, partly ×0.1)  
-- **Battery Temperature / Capacity / Rated Capacity**
+
+-   Battery SoC (`bat_soc`)
+-   Battery Power, PV Power, Grid Import/Export Power
+-   Energy counters (PV, grid, load, battery)
+-   Battery temperature, capacity, rated capacity
 
 ### Select
-- **Operating Mode** with options: `Auto`, `AI`, `Manual`, `Passive`
 
-### Numbers (only valid in *Passive* mode)
-- **Passive Power** *(W, 0–10000)*  
-- **Passive Countdown** *(s, 0–86400)*  
+-   Operating mode (`Auto`, `AI`, `Manual`, `Passive`)
+
+### Numbers (Passive mode only)
+
+-   Passive Power (0--10000 W)\
+-   Passive Countdown (0--86400 s)
 
 ### Binary Sensors
-- **Battery Charging Allowed**  
-- **Battery Discharging Allowed**
+
+-   Battery Charging Allowed\
+-   Battery Discharging Allowed
 
 ### Switches
-- Quick selectors for modes (`Auto`, `AI`, `Passive`).  
 
-### Service
-- **`marstek.refresh_now`** – forces an immediate data refresh.  
+-   Quick selectors for modes (`Auto`, `AI`, `Passive`)
 
----
+------------------------------------------------------------------------
 
 ## 🔌 Network & Protocol
-- Communication via **UDP** directly to the storage system’s IP (`Port 30000` by default).  
-- Optional **local binding** (`local_IP`/`local_port`) for controlled source ports.  
-- Configurable timeouts & retries, smoothing for small power fluctuations.  
 
----
+-   Uses **UDP** to communicate with the battery (default port 30000)\
+-   Optional binding to `local_IP` and `local_port` for NAT/firewall
+    setups\
+-   Configurable retries and smoothing
+
+------------------------------------------------------------------------
 
 ## 🛠 Troubleshooting
-- **No data?** Check IP/port/device ID and confirm the device is reachable in the same network.  
-- **Strict NAT/firewall?** Set `local_IP`/`local_port` and allow inbound responses.  
-- **Strange fluctuations?** Increase `Min power delta (W)`.  
-- **Need `unavailable` on timeout?** Enable *Fail unavailable on timeout*.  
-- **Enable logs:** add `logger:` with `custom_components.marstek: debug`.  
 
----
+-   **No data?** Check IP/port/device ID and ensure the device is
+    reachable\
 
-## 📁 Project Structure (Short)
-```
-custom_components/marstek/
-├── __init__.py            # Setup, coordinator, service
-├── api.py                 # UDP client (ES.GetStatus / ES.GetMode / ES.SetMode / Bat.GetStatus)
-├── coordinator.py         # DataUpdateCoordinator with retry/smoothing
-├── sensor.py              # Dynamic + fixed battery sensors
-├── switch.py              # Mode switches
-├── number.py              # Passive power/countdown
-├── select.py              # Operating mode
-├── binary_sensor.py       # Charge/Discharge allowed
-├── manifest.json          # domain, name, version, iot_class, config_flow
-├── strings.json, translations/
-└── diagnostics.py
-```
+-   **Strict NAT/firewall?** Configure `local_IP`/`local_port`\
 
----
+-   **Fluctuations?** Increase *Min power delta (W)*\
+
+-   **Need `unavailable` on timeout?** Enable *Fail unavailable on
+    timeout*\
+
+-   **Debug logs:**
+
+    ``` yaml
+    logger:
+      default: warning
+      logs:
+        custom_components.marstek: debug
+    ```
+
+------------------------------------------------------------------------
 
 ## 📜 License & Maintainer
-- **Codeowners:** `lemuba`
 
----
+-   **Codeowners:** `lemuba`\
+-   MIT License
 
-**Good luck!** 🚀  
+------------------------------------------------------------------------
+
+**Good luck & have fun!** 🚀
