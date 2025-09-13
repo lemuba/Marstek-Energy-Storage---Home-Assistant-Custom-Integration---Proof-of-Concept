@@ -144,7 +144,7 @@ no data will be received.
 
 ## 📜 License & Maintainer
 
--   **Codeowners:** `lemuba`\
+-   **Codeowners:** `Lemuba`
 -   MIT License
 
 ------------------------------------------------------------------------
