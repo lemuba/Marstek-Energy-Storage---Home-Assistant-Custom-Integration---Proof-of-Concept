@@ -1,6 +1,6 @@
 # Marstek Energy Storage – Home Assistant Integration
 
-IMPORTANT: Please note that I´m not a programmer. This Home Assistant Integration was designed by me just with the help of Chat gpt 5 by Trial and error. I will not support and also not continue to develop this Integration. Understand this Version just as Proof of Concept. Possible that below mentioned sensors, switches, etc,  will not work or be unstable. The Hardware I used to test everyting was my own Marstek Venus v2, Firmware V154 and with enabled API on port 30000.
+IMPORTANT: Please note that I´m not a programmer. This Home Assistant Integration was designed by me just with the help of Chat gpt 5 by Trial and error. Most possible I will not support and also not continue to develop this Integration. Understand this Version just as Proof of Concept. Possible that below mentioned sensors, switches, etc,  will not work or be unstable. The Hardware I used to test everyting was my own Marstek Venus v2, Firmware V154 and with enabled API on port 30000.
 
 > **Version:** 0.6.11 · **Domain:** `marstek` · **IoT class:** `local_polling`
 
