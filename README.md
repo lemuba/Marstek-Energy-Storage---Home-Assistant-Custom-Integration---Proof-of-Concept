@@ -24,19 +24,19 @@ The integration must be installed under the Home Assistant
 `custom_components/` directory:
 
     custom_components/marstek/
-    ├── __init__.py
-    ├── api.py
-    ├── coordinator.py
-    ├── sensor.py
-    ├── switch.py
-    ├── number.py
-    ├── select.py
-    ├── binary_sensor.py
-    ├── manifest.json
-    ├── diagnostics.py
-    ├── strings.json
+    ├── __init__.py            # Setup, initialization
+    ├── api.py                 # UDP client (ES.GetStatus / ES.GetMode / ES.SetMode / Bat.GetStatus)
+    ├── coordinator.py         # DataUpdateCoordinator with retry/smoothing
+    ├── sensor.py              # Dynamic + fixed battery sensors
+    ├── switch.py              # Mode switches
+    ├── number.py              # Passive power/countdown controls
+    ├── select.py              # Operating mode selection
+    ├── binary_sensor.py       # Charge/discharge allowed
+    ├── manifest.json          # Metadata: domain, name, version, iot_class, config_flow
+    ├── diagnostics.py         # HA diagnostics integration
+    ├── strings.json           # String resources
     ├── translations/
-    │   └── en.json
+    │   └── en.json            # Language support
 
 👉 The folder name must be exactly `marstek`, otherwise Home Assistant
 will not detect the integration.
